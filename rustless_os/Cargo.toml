@@ -2,7 +2,15 @@
 name = "rustless_os"
 version = "0.1.0"
 edition = "2018"
-
+# To disable eh_personailty lang, abort panic
+# Setting panic strategery to abort for the dev profile.
+# dev profile is used in cargo build
+[profile.dev]
+panic = "abort"
+# Setting panic strategry to abort for the release profile,
+# release profile is used in cargo build --release
+[profile.release]
+panic = "abort"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
