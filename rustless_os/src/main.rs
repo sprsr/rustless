@@ -21,7 +21,7 @@ fn panic(_info: &PanicInfo) -> ! {
 // We must extern C to tell compiler to use C calling convention
 // Returning ! ~ Diverting function.
 // Instead of return, we exit :)
-pub extern "C" fn_start() -> ! {
+pub extern "C" fn _start() -> ! {
     loop {}
 }
 
