@@ -1,0 +1,7 @@
+cargo:rerun-if-changed=/home/sp/repos/rustless/rustless_os/Cargo.toml
+cargo:rustc-link-search=native=/home/sp/repos/rustless/rustless_os/target/bootimage/bootloader/x86_64-bootloader/release/build/bootloader-b3f12da66ffca89e/out
+cargo:rustc-link-lib=static=kernel_bin-rustless_os
+cargo:rerun-if-env-changed=KERNEL
+cargo:rerun-if-env-changed=KERNEL_MANIFEST
+cargo:rerun-if-changed=/home/sp/repos/rustless/rustless_os/target/x86_64-rustless_os/debug/rustless_os
+cargo:rerun-if-changed=build.rs

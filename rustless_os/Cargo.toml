@@ -12,5 +12,6 @@ panic = "abort"
 [profile.release]
 panic = "abort"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
+# For creating a bootable disk image
 [dependencies]
+bootloader = "0.9.23"
