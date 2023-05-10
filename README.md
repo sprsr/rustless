@@ -17,5 +17,9 @@ Disc Image will print a statement when booted by extending binary <br>
 Using nightly rust channel <br>
 <h6> Target SpecificatioN <h6> <br>
 Special configuration parameters are to be set via JSON File, <br>
-Kernel target specifies Os as none to run on bare metal.
+Kernel target specifies Os as none to run on bare metal.<br>
+@5/9/2023<br>
+I can compile with target specifications, but only after configuring build-std to recompile core and compiler_builtins.  Also, I received many errors using stable rust channel and required nightly channel.<br>
+To compile, must redirect target to the JSON Specification as such: <br>
+cargo build --target x86_64-rustless.json
 

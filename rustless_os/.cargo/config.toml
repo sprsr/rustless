@@ -1,0 +1,5 @@
+# We must configure build-std to recompile core and compiler_builtins
+# This allows recompilation of libs instead of precompiled versions
+[unstable]
+build-std = ["core", "compiler_builtins"]
+
