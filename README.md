@@ -23,6 +23,7 @@ To compile, must redirect target to the JSON Specification as such: <br>
 cargo build --target x86_64-rustless.json<br>
 Now configured target so target argument can be voided <br>
 <h4> Printing from Kernel build </h4>
+@5/10/2024<br>
 Implemented basic driver for VGA Buffer.  You can now:
 use bootimage to compile kernel to an ELF file, compile bootloader dependency as a standalone executable, and link bytes of the kernel ELF file to the bootloader. <br>
 With host OS as Arch Linux, I am able to boot the disk image with QEMU Virtual Machine
