@@ -38,7 +38,7 @@ impl ColorCode {
 }
 
 //Copy Semantics
-#[derive(Debug, Clone, Copy, PartialEq, Eq]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 // Ensures struct is laid out exactly as in C
 #[repr(C)]
 struct ScreenChar {
@@ -61,3 +61,46 @@ pub struct Writer {
 }
 
 // Funciton to write a single ASCII byte
+impl Writer {
+    pub fn write_byte(&mut self, byte: u8) {
+        match byte {
+            b'\n' => self.newline(),
+            byte => {
+                if self.column_position >= BUFFER_WiDTH {
+                    self.new_line();
+                }
+                let row = BUFFER_HEIGHT -1;
+                let col = self.column_position;
+                let color_code = self.color_code;
+                self.buffer.chars[row][col] = ScreenChar {
+                    ascii_character: byte,
+                    color_code,
+                };
+                self.column_position +=1;
+            }
+        }
+    }
+    
+    // Function to write a full string
+    pub fn write_string(&mut self, s: &str) {
+        for byte in s.bytes() {
+            match byte {
+                0x20..=0x7e | b'\n' => self.write_byte(byte),
+                _ => self.write_byte(0xfe),
+            }
+        }
+    }
+}
+
+// Function to print something
+pub fn print_string() {
+    let mut writer = Writer {
+        column_position: 0,
+        color_code: ColorCode::new(Color::Yellow, Color::Black),
+        buffer: unsafe { 7mut *(0xb8000 as *mut Buffer) },
+    };
+
+    writer.write_byte(b'H');
+    writer.write_string("ello ");
+    writer.write_string("World!");
+}
