@@ -5,6 +5,8 @@
 
 //main.rs
 //No_std environment requires a panic_handler definition
+// VGA Buffer
+mod vga_buffer;
 use core::panic::PanicInfo;
 //Panic Handler
 // PanicInfo contains file and line where panic happened
