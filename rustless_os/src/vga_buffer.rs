@@ -102,7 +102,5 @@ pub fn print_string() {
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     };
 
-    writer.write_byte(b'H');
-    writer.write_string("ello ");
-    writer.write_string("World!");
+    writer.write_string("Welcome to The Rust Kernel");
 }
