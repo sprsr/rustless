@@ -16,7 +16,7 @@ pub enum Color {
     Brown       = 6,
     LightGray   = 7,
     DarkGray    = 8,
-    Light Blue  = 9,
+    LightBlue  = 9,
     LightGreen  = 10,
     LightCyan   = 11,
     LightRed    = 12,
@@ -33,7 +33,7 @@ struct ColorCode(u8);
 
 impl ColorCode {
     fn new(foreground: Color, background: Color) -> ColorCode {
-        ColorCode((background as u*) << 4 | (foreground as u8))
+        ColorCode((background as u8) << 4 | (foreground as u8))
     }
 }
 
@@ -64,9 +64,9 @@ pub struct Writer {
 impl Writer {
     pub fn write_byte(&mut self, byte: u8) {
         match byte {
-            b'\n' => self.newline(),
+            b'\n' => self.new_line(),
             byte => {
-                if self.column_position >= BUFFER_WiDTH {
+                if self.column_position >= BUFFER_WIDTH {
                     self.new_line();
                 }
                 let row = BUFFER_HEIGHT -1;
@@ -80,7 +80,9 @@ impl Writer {
             }
         }
     }
-    
+   
+    fn new_line(&mut self) { }
+
     // Function to write a full string
     pub fn write_string(&mut self, s: &str) {
         for byte in s.bytes() {
@@ -97,7 +99,7 @@ pub fn print_string() {
     let mut writer = Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::Yellow, Color::Black),
-        buffer: unsafe { 7mut *(0xb8000 as *mut Buffer) },
+        buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     };
 
     writer.write_byte(b'H');
