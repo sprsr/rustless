@@ -1,5 +1,8 @@
 //vga_buffer.rs
-
+// Writes to the VGA are volatile
+use volatile::Volatile;
+// To Format macros to print different types
+use core::fmt;
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
@@ -50,8 +53,9 @@ const BUFFER_HEIGHT: usize = 25;
 const BUFFER_WIDTH: usize = 80;
 
 #[repr(transparent)]
+// Volatile writes 
 struct Buffer {
-    chars: [[ScreenChar; BUFFER_WIDTH]; BUFFER_HEIGHT],
+    chars: [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
 pub struct Writer {
@@ -72,10 +76,12 @@ impl Writer {
                 let row = BUFFER_HEIGHT -1;
                 let col = self.column_position;
                 let color_code = self.color_code;
-                self.buffer.chars[row][col] = ScreenChar {
+                // Using the write method to guarantee that the compiler never optimizes away
+                // write 
+                self.buffer.chars[row][col].write(ScreenChar {
                     ascii_character: byte,
                     color_code,
-                };
+                });
                 self.column_position +=1;
             }
         }
@@ -103,4 +109,12 @@ pub fn print_string() {
     };
 
     writer.write_string("Welcome to The Rust Kernel");
+}
+
+//Formatting macros so we can print different types
+impl fmt::Write for Writer {
+    fn write_str(&mut self, s: &str) => fmt::Result {
+        self.write_string(s);
+        Ok(())
+    }
 }
