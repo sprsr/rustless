@@ -102,6 +102,7 @@ impl Writer {
 
 // Function to print something
 pub fn print_string() {
+    use core::fmt::Write;
     let mut writer = Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::Yellow, Color::Black),
@@ -109,11 +110,12 @@ pub fn print_string() {
     };
 
     writer.write_string("Welcome to The Rust Kernel");
+    write!(writer, "Testing number implementation : {}", 1.0/3.0);
 }
 
 //Formatting macros so we can print different types
 impl fmt::Write for Writer {
-    fn write_str(&mut self, s: &str) => fmt::Result {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
         self.write_string(s);
         Ok(())
     }
