@@ -97,6 +97,9 @@ impl Writer {
         self.clear_row(BUFFER_HEIGHT - 1);
         self.column_position = 0;
     }
+
+    fn clear_row(&mut self, row: usize) {/* TODO */}
+
     // Function to write a full string
     pub fn write_string(&mut self, s: &str) {
         for byte in s.bytes() {
