@@ -3,6 +3,10 @@
 use volatile::Volatile;
 // To Format macros to print different types
 use core::fmt;
+// Using lazy_static
+use lazy_static::lazy_static;
+// Using spinning mutex to add safe interior mutability to WRITER
+use spin:Mutex
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
@@ -118,7 +122,16 @@ impl Writer {
         }
     }
 }
-
+// Global Writer interface
+// Allows us to use an interface from other modules without
+// carrying arround an instance of Writer.
+lazy_static! {
+    pub static WRITER: Writer = Mutex::new(Writer {
+        column_postion: 0,
+        color_code: ColorCode::new(Color::Yellow, Color::Black),
+        buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
+    });
+}
 // Function to print something
 pub fn print_string() {
     use core::fmt::Write;

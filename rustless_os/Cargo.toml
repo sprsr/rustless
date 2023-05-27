@@ -17,3 +17,11 @@ panic = "abort"
 bootloader = "0.9.23"
 # To prevent compiler from optimizing writes away
 volatile = "0.2.6"
+# To get synchronized interior mutability, we can use mutex.
+# spinlock tries to use lock again in a loop, burning cpu time until mutex is free.
+spin = "0.5.2"
+# One-Time initialization of statics with non-const functions issue
+# Using lazy_static! we difine a lazily initialized static instead of computing its value at compile time, lazy initializes itself when accessed for the first time, to initialize at runtime. 
+[dependencies.lazy_static] 
+version = "1.0" 
+features = ["spin_no_std"]
