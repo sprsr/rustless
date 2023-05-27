@@ -42,10 +42,10 @@ pub extern "C" fn _start() -> ! {
     }
     */
     //vga_buffer::print_string();
-    use core::fmt::Write;
-    vga_buffer::WRITER.lock().write_str("Testing Hello").unwrap();
-    write!(vga_buffer::WRITER.lock(), ", some numbers: {} {}", 42, 1.337).unwrap();
-
+    //use core::fmt::Write;
+    //vga_buffer::WRITER.lock().write_str("Testing Hello").unwrap();
+    //write!(vga_buffer::WRITER.lock(), ", some numbers: {} {}", 42, 1.337).unwrap();
+    println!("Hello World{}", "!");
     loop {}
 }
 

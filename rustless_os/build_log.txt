@@ -1,0 +1,20 @@
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+WARNING: `CARGO_MANIFEST_DIR` env variable not set
+Building kernel
+Building bootloader
+Created bootimage for `rustless_os` at `/home/sp/repos/rustless/rustless_os/target/x86_64-rustless_os/debug/bootimage-rustless_os.bin`

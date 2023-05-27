@@ -6,10 +6,12 @@ use core::fmt;
 // Using lazy_static
 use lazy_static::lazy_static;
 // Using spinning mutex to add safe interior mutability to WRITER
-use spin:Mutex
+use spin::Mutex;
+
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u8)]
+
 // allow(dead_code) prevents warnings for unused enums.
 // Deriving Debug, Clone, Copy, ... we enable copy semantics.
 // Enum to specify color.  [repr(u8)] defines enums as u8.
@@ -104,7 +106,7 @@ impl Writer {
 
     fn clear_row(&mut self, row: usize) {
         let blank = ScreenChar {
-            ascii_character: b'',
+            ascii_character: b' ',
             color_code: self.color_code,
         };
         for col in 0..BUFFER_WIDTH {
@@ -126,8 +128,8 @@ impl Writer {
 // Allows us to use an interface from other modules without
 // carrying arround an instance of Writer.
 lazy_static! {
-    pub static WRITER: Writer = Mutex::new(Writer {
-        column_postion: 0,
+    pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
+        column_position: 0,
         color_code: ColorCode::new(Color::Yellow, Color::Black),
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     });
@@ -141,7 +143,7 @@ pub fn print_string() {
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     };
 
-    writer.write_string("Welcome to The Rust Kernel");
+    writer.write_string("Welcome to The Rust Kernel\n");
     write!(writer, "Testing number implementation : {}", 1.0/3.0);
 }
 
@@ -151,4 +153,20 @@ impl fmt::Write for Writer {
         self.write_string(s);
         Ok(())
     }
+}
+
+//Macros
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)));
+}
+#[macro_export]
+macro_rules! println {
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n",format_args!($($arg)*)));
+}
+#[doc(hidden)]
+pub fn _print(args: fmt::Arguments) {
+    use core::fmt::Write;
+    WRITER.lock().write_fmt(args).unwrap();
 }
