@@ -14,7 +14,8 @@ use core::panic::PanicInfo;
 // diverging function, returning never
 // For now this routine does nothing
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}",info);
     loop {}
 }
 
@@ -45,7 +46,8 @@ pub extern "C" fn _start() -> ! {
     //use core::fmt::Write;
     //vga_buffer::WRITER.lock().write_str("Testing Hello").unwrap();
     //write!(vga_buffer::WRITER.lock(), ", some numbers: {} {}", 42, 1.337).unwrap();
-    println!("Hello World{}", "!");
+    println!("Welcome to the Rust Kernel!{}", "!");
+    panic!("testing the panic print statement");
     loop {}
 }
 
