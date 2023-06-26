@@ -26,7 +26,7 @@ Now configured target so target argument can be voided <br>
 @5/10/2024<br>
 Implemented basic driver for VGA Buffer.  You can now:
 use bootimage to compile kernel to an ELF file, compile bootloader dependency as a standalone executable, and link bytes of the kernel ELF file to the bootloader. <br>
-With host OS as Arch Linux, I am able to boot the disk image with QEMU Virtual Machine
+With host OS as Linux, I am able to boot the disk image with QEMU Virtual Machine
 Use the following command: <br>
 </t> > qemu-system-x86_64 -drive format=raw,file=target/x86_64-blog_os/debug/bootimage-blog_os.bin 
 <h4> Printing <h4>
